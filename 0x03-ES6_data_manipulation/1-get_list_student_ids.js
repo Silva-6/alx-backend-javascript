@@ -1,5 +1,6 @@
-// eslint-disable-next-line consistent-return
-export default function getListStudentIds(arg) {
-  if (!Array.isArray(arg)) return [];
-  return arg.map((el) => el.id);
+export default function getListStudentIds(students) {
+  if (students instanceof Array) {
+    return students.map((student) => student.id);
+  }
+  return [];
 }
