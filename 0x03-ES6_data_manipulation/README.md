@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ES6 Data Manipulation
 
 This project contains tasks for learning to manipulate data in ECMAScript 2015 (ES6).
@@ -83,3 +84,7 @@ This project contains tasks for learning to manipulate data in ECMAScript 2015 (
     ```
   + Track within the `weakMap` the number of times `queryAPI` is called for each endpoint.
   + When the number of queries is >= 5 throw an error with the message `Endpoint load is high`.
+=======
+x03. ES6 data manipulation
+==========================
+>>>>>>> 6788cf445f4edbb0bcc0f0b55d4437e25d24aade
