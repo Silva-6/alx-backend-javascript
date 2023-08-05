@@ -1,55 +1,68 @@
-interface DirectorInterface {
-    workFromHome(): string
-
-    getCoffeeBreak(): string
-
-    workDirectorTasks(): string
+export interface DirectorInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workDirectorTasks(): string;
 }
 
-interface TeacherInterface {
-    workFromHome(): string
-
-    getCoffeeBreak(): string
-
-    workTeacherTasks(): string
+export interface TeacherInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workTeacherTasks(): string;
 }
 
 export class Director implements DirectorInterface {
+  workFromHome() {
+    return 'Working from home';
+  }
 
-    getCoffeeBreak = (): string => "Getting a coffee break";
+  getCoffeeBreak() {
+    return 'Getting a coffee break';
+  }
 
-    workDirectorTasks = (): string => "Getting to director tasks";
-
-    workFromHome = (): string => "Working from home";
-
+  workDirectorTasks() {
+    return 'Getting to director tasks';
+  }
 }
 
 export class Teacher implements TeacherInterface {
-    getCoffeeBreak = (): string => "Cannot have a break";
+  workFromHome() {
+    return 'Cannot work from home';
+  }
 
-    workFromHome = (): string => "Cannot work from home";
+  getCoffeeBreak() {
+    return 'Cannot have a break';
+  }
 
-    workTeacherTasks = (): string => "Getting to work";
-
+  workTeacherTasks() {
+    return 'Getting to work';
+  }
 }
 
-export const createEmployee = (salary: number | string): Teacher | Director => Number(salary) < 500 ? new Teacher() : new Director();
-
-export function isDirector(employee: TeacherInterface | DirectorInterface): employee is Director {
-    return (employee as Director).workDirectorTasks() !== undefined;
+export function createEmployee(salary: (number | string)): (Director | Teacher) {
+  if (typeof salary === 'number' && salary < 500) {
+    return new Teacher();
+  }
+  return new Director();
 }
 
-export function executeWork(employee: DirectorInterface | TeacherInterface): string {
-    let res = undefined;
-    (isDirector(employee)) ? res = employee.workDirectorTasks() : res = employee.workTeacherTasks();
-    return res;
+export function isDirector(employee: (Director | Teacher)) {
+  return employee instanceof Director;
 }
 
-type Subjects = "Math" | "History";
-
-// @ts-ignore
-// @ts-ignore
-export function teachClass(todayClass: Subjects): string | boolean {
-    return (todayClass === "Math") ? "Teaching Math" : (todayClass === "History") ? "Teaching History" : `${undefined}`
+export function executeWork(employee: (Director | Teacher)) {
+  if (isDirector(employee)) {
+    return (employee as Director).workDirectorTasks();
+  }
+  return (employee as Teacher).workTeacherTasks();
 }
 
+export type Subjects = ('Math' | 'History');
+
+export function teachClass(todayClass: Subjects): string {
+  if (todayClass === 'Math') {
+    return 'Teaching Math';
+  }
+  if (todayClass === 'History') {
+    return 'Teaching History';
+  }
+}
