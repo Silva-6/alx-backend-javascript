@@ -1,29 +1,26 @@
-const sinon = require('sinon');
 const { expect } = require('chai');
-const sendPaymentRequestToApi = require('./5-payment');
+const { it, describe } = require('mocha');
+const sinon = require('sinon');
 
-describe('sendPaymentRequestToApi', () => {
-  let bigBrother;
+const Utils = require('./utils.js');
+const sendPaymentRequestToApi = require('./5-payment.js');
 
+describe('', () => {
+  let spyBoy;
   beforeEach(() => {
-    if (!bigBrother) {
-      bigBrother = sinon.spy(console);
-    }
+    spyBoy = sinon.spy(console, 'log');
   });
-
   afterEach(() => {
-    bigBrother.log.resetHistory();
+    sinon.restore();
   });
-
-  it('sendPaymentRequestToApi(100, 20) logs "The total is: 120" to the console', () => {
+  it('checking if numbers round with spies and stubs 1st', () => {
     sendPaymentRequestToApi(100, 20);
-    expect(bigBrother.log.calledWith('The total is: 120')).to.be.true;
-    expect(bigBrother.log.calledOnce).to.be.true;
+    expect(spyBoy.calledOnce).to.be.true;
+    expect(spyBoy.calledWith('The total is: 120')).to.be.true;
   });
-
-  it('sendPaymentRequestToApi(10, 10) logs "The total is: 20" to the console', () => {
+  it('checking if numbers round with spies and stubs 2nd', () => {
     sendPaymentRequestToApi(10, 10);
-    expect(bigBrother.log.calledWith('The total is: 20')).to.be.true;
-    expect(bigBrother.log.calledOnce).to.be.true;
+    expect(spyBoy.calledOnce).to.be.true;
+    expect(spyBoy.calledWith('The total is: 20')).to.be.true;
   });
 });
